@@ -15,11 +15,13 @@ import { HomePage } from '../home/home';
   templateUrl: 'dicas.html',
 })
 export class DicasPage {
+  email:string;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public firebase: AngularFireAuth,
     public toastCtrl: ToastController,) {
+      this.email = firebase.auth.currentUser.email;
   }
 
   ionViewDidLoad() {
