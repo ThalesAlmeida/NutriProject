@@ -2,6 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { DicasPage } from '../dicas/dicas';
 import { RegisterPage } from '../register/register';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+import {Users} from './users';
+import { User } from 'firebase';
 
 @Component({
   selector: 'page-home',
@@ -9,23 +13,40 @@ import { RegisterPage } from '../register/register';
 })
 export class HomePage {
 
+  users: Users = new Users();
+
   @ViewChild('usuario') email;
   @ViewChild('senha') password;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, 
+    public toastCtrl: ToastController,
+    public firebase: AngularFireAuth,) {
 
   }
 
   public entrar() {
     let toast = this.toastCtrl.create({ duration: 3000, position: 'bottom' });
-    if (this.email.value == 'thales' && this.password.value == '123') {
-      this.navCtrl.push(DicasPage);
-      toast.setMessage("Usuário autenticado")
+    this.firebase.auth.signInWithEmailAndPassword(this.email.value, this.password.value)
+    .then(data => {
+      console.log('data do login: ', data);
+        this.users.email = this.email.value;
+        this.users.senha =  this.password.value;
+
+        this.navCtrl.setRoot(DicasPage)
+    })
+    .catch((error: any) => {
+      if (error.code == 'auth/invalid-email') {
+        toast.setMessage('O email é inválido');
+      } else if (error.code == 'auth/user-disabled') {
+        toast.setMessage('O usuário está desativado');
+      } else if (error.code == 'auth/wrong-password') {
+        toast.setMessage('A senha está errada, tente novamente');
+      }else if(error.code == 'auth/user-not-found'){
+        toast.setMessage('Usuário não encontrado');
+      }
       toast.present();
-    } else {
-      toast.setMessage('Não autenticado')
-      toast.present();
-    }
+
+    });
   }
 
   public openPageRegistrar() {
