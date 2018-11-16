@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import {AngularFireAuth} from 'angularfire2/auth';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the DicasPage page.
  *
@@ -15,11 +16,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DicasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public firebase: AngularFireAuth,
+    public toastCtrl: ToastController,) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DicasPage');
+  }
+
+  sair(){
+    let toast = this.toastCtrl.create({duration:3000, position:'bottom'});
+    this.firebase.auth.signOut();
+    toast.setMessage('Usuário deslogado');
+    toast.present();
+    this.navCtrl.setRoot(HomePage);
   }
 
 }
