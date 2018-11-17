@@ -68,4 +68,23 @@ export class HomePage {
     })
   }
 
+  public entrarVisitante(){
+    let toast = this.toastCtrl.create({ duration: 3000, position: 'bottom' });
+
+    this.firebase.auth.signInAnonymously()
+    .then(data => {
+      console.log(data);
+      toast.setMessage('Entrou na página');
+      this.navCtrl.setRoot(DicasPage);
+    })
+    .catch((error: any) => {
+      if (error.code == 'auth/operation-not-allowed') {
+        toast.setMessage('Operação inválida');
+      }else{
+        console.log('Error', error);
+      }
+      toast.present();
+    });
+  }
+
 }
