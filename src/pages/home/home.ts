@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import {Users} from './users';
 import { User } from 'firebase';
+import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 
 @Component({
   selector: 'page-home',
@@ -51,6 +52,10 @@ export class HomePage {
 
   public openPageRegistrar() {
     this.navCtrl.push(RegisterPage)
+  }
+
+  public recuperarSenha(){
+    this.navCtrl.push(RecuperarSenhaPage)
   }
 
 }
