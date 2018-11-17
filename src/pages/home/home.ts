@@ -4,6 +4,8 @@ import { DicasPage } from '../dicas/dicas';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import firebase from 'firebase';
+
 import {Users} from './users';
 import { User } from 'firebase';
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
@@ -56,6 +58,14 @@ export class HomePage {
 
   public recuperarSenha(){
     this.navCtrl.push(RecuperarSenhaPage)
+  }
+
+  public entrarFacebook(){
+    this.firebase.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+    .then(res=>{
+      //console.log(res)
+      this.navCtrl.push(DicasPage)
+    })
   }
 
 }
