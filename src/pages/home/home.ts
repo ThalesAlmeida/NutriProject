@@ -9,6 +9,7 @@ import firebase from 'firebase';
 import {Users} from './users';
 import { User } from 'firebase';
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
+import { ProfilePage } from '../profile/profile';
 
 @Component({
   selector: 'page-home',
@@ -64,7 +65,7 @@ export class HomePage {
     this.firebase.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
     .then(res=>{
       //console.log(res)
-      this.navCtrl.push(DicasPage)
+      this.navCtrl.push(ProfilePage)
     })
   }
 

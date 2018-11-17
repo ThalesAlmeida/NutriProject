@@ -12,6 +12,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RegisterPage } from '../pages/register/register';
 import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
+import { ProfilePage } from '../pages/profile/profile';
 
 const firebaseAuth = {
   apiKey: "AIzaSyD7Gdvt2NSuz1Gq2nUgDTpA_jnhcFMiIsA",
@@ -29,6 +30,7 @@ const firebaseAuth = {
     DicasPage,
     RegisterPage,
     RecuperarSenhaPage,
+    ProfilePage,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ const firebaseAuth = {
     DicasPage,
     RegisterPage,
     RecuperarSenhaPage,
+    ProfilePage,
   ],
   providers: [
     StatusBar,
